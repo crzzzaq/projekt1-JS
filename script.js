@@ -1,21 +1,24 @@
 let cells = document.querySelectorAll('#field td');
 console.log(cells);
-let i = 0;
 
+let i = 0;
 function start(cells) {
     for (let cell of cells) {
         cell.addEventListener('click', function step() {
             if (i % 2 == 0) {
-                this.textContent = "X";
+                this.textContent = 'X';
             }
             else {
-                this.textContent = "0";
+                this.textContent = '0';
             }
-            i++;
+
             this.removeEventListener('click', step);
             if (isWinner(cells) == true) {
-                console.log(`Победитель ${this.textContent}`);
-            }
+                alert(`Победитель ${this.textContent}`);
+            } else if (i == 8) {
+                alert('Ничья');
+            };
+            i++;
         })
     }
 }
@@ -33,9 +36,10 @@ function isWinner() {
         [2, 4, 6] //7
     ]
     for (let comb of combs) {
-        if (cells[comb[0]].textContent == cells[comb[1]].textContent && cells[comb[2]].textContent && cells[comb[0]].textContent != '') {
+        if (cells[comb[0]].textContent == cells[comb[1]].textContent && cells[comb[1]].textContent == cells[comb[2]].textContent && cells[comb[0]].textContent != '') {
             return true;
         }
     }
+    return false;
 }
 
